@@ -4,4 +4,4 @@ WORKDIR /app
 RUN yarn global add serve
 COPY build/ .
 RUN pwd && ls -l
-CMD [ "serve", "-s", "." ]
+CMD [ "serve", "-s", "" ]
