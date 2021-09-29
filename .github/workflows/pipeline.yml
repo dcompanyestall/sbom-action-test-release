@@ -20,7 +20,7 @@ jobs:
           artifact-name: yarn-dependencies.spdx.json
 
       - name: Build App
-        run: npm run package
+        run: yarn build
 
       - name: Build Docker Image
         run: docker build -t sbom-action-test:latest .
