@@ -1,0 +1,16 @@
+name: Create / Edit Release
+on:
+  push:
+    tags: [ v* ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          draft: true
+
+      - name: Upload Release SBOMs
+        uses: anchore/sbom-action/publish-sbom@v0

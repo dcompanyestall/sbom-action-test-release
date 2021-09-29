@@ -1,0 +1,32 @@
+name: Build Pipeline
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Yarn Install
+        run: yarn
+
+      - name: Yarn Dependencies SBOM
+        uses: anchore/sbom-action@v0
+        with:
+          artifact-name: yarn-dependencies.spdx.json
+
+      - name: Build App
+        run: npm run package
+
+      - name: Build Docker Image
+        run: docker build -t sbom-action-test:latest .
+
+      - name: Docker Image SBOM
+        uses: anchore/sbom-action@v0
+        with:
+          image: sbom-action-test:latest
+          artifact-name: docker-image.spdx.json
