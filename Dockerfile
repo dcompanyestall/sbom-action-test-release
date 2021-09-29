@@ -3,4 +3,4 @@ ENV NODE_ENV=production
 WORKDIR /app
 RUN yarn global add serve
 COPY build/ .
-CMD [ "serve", "-s", "" ]
+CMD [ "serve", "-s", "." ]
